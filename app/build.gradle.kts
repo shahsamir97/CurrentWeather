@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     implementation(libs.coil.compose)
+    implementation (libs.accompanist.permissions)
 
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)

@@ -1,13 +1,13 @@
 [versions]
 agp = "8.7.2"
-kotlin = "2.0.0"
+kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.04.01"
+composeBom = "2024.11.00"
 retrofit = "2.9.0"
 converterGson = "2.9.0"
 loggingInterceptor = "4.10.0"
@@ -16,6 +16,7 @@ secretsGradlePlugin = "2.0.1"
 hilt = "2.52"
 hiltNavigationCompose = "1.2.0"
 ksp = "2.0.21-1.0.27"
+accompanistPermissions = "0.36.0"
 
 
 [libraries]
@@ -43,6 +44,7 @@ hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", ve
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

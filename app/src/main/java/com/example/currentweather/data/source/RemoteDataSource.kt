@@ -9,7 +9,7 @@ interface RemoteDataSource {
     suspend fun fetchCurrentWeather(latitude: Double, longitude: Double): WeatherInfoDto
 }
 
-class RemoteSourceImpl @Inject constructor(
+class RemoteDataSourceImpl @Inject constructor(
     private val weatherApiService: WeatherApiService,
 ): RemoteDataSource {
 

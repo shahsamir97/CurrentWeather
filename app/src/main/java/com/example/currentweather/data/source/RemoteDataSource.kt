@@ -2,7 +2,7 @@ package com.example.currentweather.data.source
 
 import com.example.currentweather.data.model.WeatherInfoDto
 import com.example.currentweather.data.network.WeatherApiService
-import com.example.currentweather.utils.UNITS_KEY
+import com.example.currentweather.utils.UNIT_TYPE
 import javax.inject.Inject
 
 interface RemoteDataSource {
@@ -17,6 +17,6 @@ class RemoteDataSourceImpl @Inject constructor(
         weatherApiService.fetchCurrentWeather(
             latitude = latitude,
             longitude = longitude,
-            unit = UNITS_KEY,
+            unit = UNIT_TYPE,
         )
 }

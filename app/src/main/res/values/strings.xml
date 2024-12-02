@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Current Weather</string>
+    <string name="now">Now</string>
+    <string name="temperature">%1$s°</string>
+    <string name="feels_like_x">Feels like %1$s°</string>
+    <string name="high_x_low_x">High: %1$s° • Low: %2$s°</string>
+    <string name="try_again">Try Again</string>
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="search_zila">Search Zila</string>
+    <string name="n_a">N/A</string>
 </resources>

@@ -53,6 +53,12 @@ fun HomeScreen(state: HomeState, events: HomeEvents) {
         }
     }
 
+    LaunchedEffect(state.showAlert) {
+        if (!locationPermissionState.allPermissionsGranted && state.showAlert) {
+            locationPermissionState.launchMultiplePermissionRequest()
+        }
+    }
+
     HomeScreenContent(state = state, events = events)
 }
 

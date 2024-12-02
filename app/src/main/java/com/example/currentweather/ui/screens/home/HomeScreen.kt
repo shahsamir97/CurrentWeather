@@ -1,6 +1,6 @@
 package com.example.currentweather.ui.screens.home
 
-import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,7 +23,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,7 +38,6 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun HomeScreen(state: HomeState, events: HomeEvents) {
-    val context = LocalContext.current
 
     val locationPermissionState = rememberMultiplePermissionsState(listOf(
         android.Manifest.permission.ACCESS_FINE_LOCATION,
@@ -48,9 +46,7 @@ fun HomeScreen(state: HomeState, events: HomeEvents) {
 
     LaunchedEffect(locationPermissionState.allPermissionsGranted) {
         when(locationPermissionState.allPermissionsGranted) {
-            true -> {
-                Toast.makeText(context, "Permission Granted", Toast.LENGTH_SHORT).show()
-            }
+            true -> {}
             false -> {
                 locationPermissionState.launchMultiplePermissionRequest()
             }
@@ -70,6 +66,7 @@ fun HomeScreenContent(state: HomeState, events: HomeEvents) {
             .padding(innerPadding)
             .padding(16.dp)) {
             Card(
+                modifier = Modifier.clickable(onClick = { events.onClickSearch() }),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surface
                 ),
@@ -171,6 +168,7 @@ fun HomeScreenPreview() {
             state = HomeState.default,
             events = object : HomeEvents {
                 override fun onClickTryAgain() {}
+                override fun onClickSearch() {}
             }
         )
     }

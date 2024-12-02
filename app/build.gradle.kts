@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.gradle.secret)
     alias(libs.plugins.google.dagger.hilt)
     alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {

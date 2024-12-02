@@ -1,4 +1,4 @@
-package com.example.currentweather.ui
+package com.example.currentweather.ui.screens.home
 
 import android.location.Location
 import androidx.lifecycle.ViewModel
@@ -6,23 +6,28 @@ import androidx.lifecycle.viewModelScope
 import com.example.currentweather.data.model.toWeatherUiData
 import com.example.currentweather.data.repository.SharedRepository
 import com.example.currentweather.framework.LocationHelper
-import com.example.currentweather.ui.screens.home.HomeEvents
-import com.example.currentweather.ui.screens.home.HomeState
+import com.example.currentweather.ui.navigation.AppScreens
+import com.example.currentweather.ui.navigation.NavigationRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SharedViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val sharedRepository: SharedRepository,
     private val locationHelper: LocationHelper,
 ): ViewModel(), HomeEvents {
 
     private val _homeState = MutableStateFlow(HomeState.default)
     val homeState: StateFlow<HomeState> = _homeState
+
+    private val _navigationEvent = MutableSharedFlow<NavigationRoute>()
+    val navigationEvent: SharedFlow<NavigationRoute> = _navigationEvent
 
     init {
         getCurrentLocation()
@@ -31,7 +36,7 @@ class SharedViewModel @Inject constructor(
     fun getCurrentLocation() {
         locationHelper.getCurrentLocation(
             onSuccess = {
-                getCurrentWeather(it)
+                getCurrentWeather(it.latitude, it.longitude)
             },
             onFailure = {
                 _homeState.update { it.copy(showAlert = true) }
@@ -39,11 +44,11 @@ class SharedViewModel @Inject constructor(
         )
     }
 
-    fun getCurrentWeather(location: Location) {
+    fun getCurrentWeather(latitude: Double, longitude: Double) {
         viewModelScope.launch{
             val weatherInfoDto = sharedRepository.fetchCurrentWeather(
-                latitude = location.latitude,
-                longitude = location.longitude,
+                latitude = latitude,
+                longitude = longitude,
             )
 
             if (weatherInfoDto != null) {
@@ -59,5 +64,11 @@ class SharedViewModel @Inject constructor(
 
     override fun onClickTryAgain() {
         getCurrentLocation()
+    }
+
+    override fun onClickSearch() {
+        viewModelScope.launch {
+            _navigationEvent.emit(AppScreens.Search)
+        }
     }
 }
